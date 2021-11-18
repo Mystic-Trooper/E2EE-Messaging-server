@@ -17,7 +17,7 @@ let SUB_EVENT_RECEIVE_MESSAGE = "receive_message";
 let SUB_EVENT_MESSAGE_FROM_SERVER = "message_from_server";
 let SUB_EVENT_IS_USER_CONNECTED = "is_user_connected";
 
-let listen_port = 4002;
+let listen_port = process.env.PORT || 3000;
 
 // Status
 let STATUS_MESSAGE_NOT_SENT = 10001;
@@ -40,6 +40,7 @@ function onMessage(socket) {
 // CHECK if a user is online
 function checkOnline(socket) {
   socket.on(EVENT_IS_USER_ONLINE, function (chat_user_data) {
+    print("checking if user is online")
     checkOnlineHandler(socket, chat_user_data);
   });
 }
@@ -193,4 +194,4 @@ function printNumOnlineUsers() {
   print("Online Users: " + userMap.size);
 }
 
-server.listen(listen_port);
+server.listen(listen_port,()=>{console.log("Server up and running")});
